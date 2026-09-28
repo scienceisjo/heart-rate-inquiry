@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>딱 하나만 바꿔 보자 — 심박수 탐구</title>
+<style>
+:root{--blue:#0066cc;--ink:#1d1d1f;--muted:#626267;--paper:#f5f5f7;--line:#e0e0e0}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic",sans-serif;font-size:17px;line-height:1.65;word-break:keep-all}button{font:inherit;cursor:pointer;transition:background .15s,transform .15s}button:active{transform:scale(.95)}button:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:5px}button:disabled{opacity:.32;cursor:default}button[hidden],[hidden]{display:none!important}header{border-bottom:1px solid var(--line)}.top{max-width:1060px;margin:auto;padding:15px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:600;font-size:15px}.topic{font-size:13px;color:var(--muted)}main{max-width:1060px;margin:auto;padding:48px 30px 32px;min-height:660px}.eyebrow{color:var(--blue);font-size:14px;font-weight:600;margin:0 0 14px}h1{font-size:54px;line-height:1.16;letter-spacing:-2px;font-weight:600;margin:0 0 22px}h2{font-size:38px;line-height:1.25;letter-spacing:-1.2px;font-weight:600;margin:0 0 22px}.lead{font-size:22px;color:var(--muted);margin:0 0 30px;line-height:1.55}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.two{grid-template-columns:repeat(2,1fr)}.card{padding:25px;background:var(--paper);border-radius:18px}.card .label{margin:0 0 10px;font-size:14px;color:var(--muted)}.card h3{font-size:26px;line-height:1.35;margin:0 0 14px;font-weight:600;letter-spacing:-.7px}.card p{margin:8px 0}.big-number{font-size:54px;font-weight:600;letter-spacing:-2px;line-height:1.2}.unit{font-size:16px;color:var(--muted);letter-spacing:0;margin-left:8px}.subtle{color:var(--muted);font-size:14px}.action{border:0;background:var(--blue);color:white;border-radius:24px;padding:11px 23px;min-height:46px;font-size:16px}.ghost{border:1px solid var(--line);background:white;color:var(--ink);border-radius:24px;padding:10px 22px;min-height:46px}.reveal{margin-top:24px}.answer{background:var(--paper);padding:21px 25px;border-radius:18px;margin-top:20px;font-size:20px}.answer p{margin:0}.answer p+p{margin-top:8px}.answer strong{color:var(--blue)}.term{font-size:28px;color:var(--blue);font-weight:600;margin:15px 0 4px}.term small{display:block;color:var(--ink);font-size:17px;font-weight:400;margin-top:8px;line-height:1.65}.term-card{min-height:235px}.term-card .ghost{padding:8px 17px;font-size:15px}.context{border-left:3px solid var(--blue);padding:5px 0 5px 18px;margin:22px 0;color:var(--muted)}.context strong{color:var(--ink)}.question{font-size:32px;line-height:1.4;font-weight:600;letter-spacing:-.8px;margin:10px 0 25px}.choices{display:flex;gap:12px;flex-wrap:wrap}.choices button{flex:1;border:1px solid var(--line);background:white;border-radius:14px;padding:17px 16px;min-height:56px;font-size:20px}.choices button.selected{border:2px solid var(--blue);padding:16px 15px;color:var(--blue);background:#f1f7fd}.quizbox{background:var(--paper);border-radius:18px;padding:28px}.quizmeta{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted)}.quizfeedback{margin-top:20px;min-height:70px;font-size:18px}.quizfeedback p{margin:0}.quizfeedback strong{color:var(--blue)}.quiznext{display:flex;justify-content:flex-end;margin-top:14px}.formula{background:#272729;color:white;padding:27px 30px;border-radius:18px;font-size:28px;line-height:1.7;letter-spacing:-.5px}.formula span{color:#8fc5ff}.small-note{font-size:14px;color:var(--muted);margin-top:17px}.finish{margin-top:22px;padding-top:20px;border-top:1px solid var(--line);font-size:21px}.footer-wrap{border-top:1px solid var(--line);background:#fff}nav{max-width:1060px;margin:auto;padding:19px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px}.steps{display:flex;gap:9px}.step{border:0;background:#d2d2d7;width:9px;height:9px;border-radius:50%;padding:0;position:relative;margin:10px 5px}.step:before{content:"";position:absolute;inset:-15px}.step[aria-current="step"]{background:var(--blue);width:24px;border-radius:10px}.navbuttons{display:flex;gap:9px}.navbuttons button{font-size:15px;padding:8px 19px;min-height:44px}.position{font-size:13px;color:var(--muted)}footer{max-width:1060px;margin:auto;padding:0 30px 19px;color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:15px}footer a{color:inherit}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:1200px){body{zoom:1.35}}@media(min-width:1200px) and (max-height:900px){body{zoom:1.1}main{min-height:600px;padding-top:32px}h1{font-size:48px}}
+@media(max-width:680px){.top{padding:14px 22px}.topic{display:none}main{padding:30px 22px;min-height:0}h1{font-size:39px;letter-spacing:-1.5px}h2{font-size:32px}.lead{font-size:19px}.grid{grid-template-columns:1fr;gap:12px}.two{grid-template-columns:1fr 1fr;gap:10px}.card{padding:20px}.two .card{padding:17px}.card h3{font-size:23px}.big-number{font-size:39px}.unit{display:block;margin:0;font-size:14px}.term-card{min-height:0}.question{font-size:27px}.choices{gap:7px}.choices button{font-size:16px;padding:14px 6px}.choices button.selected{padding:13px 5px}.quizbox{padding:21px}.formula{padding:24px;font-size:23px}.answer{font-size:18px;padding:20px}.finish{font-size:19px}nav{padding:17px 22px;gap:8px;flex-wrap:wrap}.steps{gap:4px}.position{display:none}footer{padding:0 22px 18px;display:block}footer span{display:block}.context{font-size:15px}}
+.example-topics{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0}.example-topics button{border:1px solid var(--line);background:white;padding:10px 17px;border-radius:24px;min-height:44px;font-size:16px}.example-topics button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:white}.example-panel{background:var(--paper);border-radius:18px;padding:26px}.example-panel .hypothesis-text{font-size:26px;font-weight:600;line-height:1.55;letter-spacing:-.7px;margin:5px 0 22px}.example-facts{margin:0;display:grid;grid-template-columns:90px 1fr;gap:12px 18px;font-size:17px}.example-facts dt{font-weight:600;color:var(--blue)}.example-facts dd{margin:0}.example-tip{border-top:1px solid var(--line);padding-top:16px;margin:20px 0 0;font-size:15px;color:var(--muted)}@media(max-width:680px){.example-panel{padding:20px}.example-panel .hypothesis-text{font-size:22px}.example-facts{grid-template-columns:1fr;gap:4px}.example-facts dd{margin-bottom:12px}.example-topics button{font-size:14px;padding:9px 13px}.steps{gap:2px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{body{zoom:1!important}header,.footer-wrap,.reveal,.term-card button,.quiznext{display:none}main{max-width:none;padding:0}section[hidden]{display:block!important}section{break-after:page;padding:20px}.answer[hidden],.term[hidden]{display:block!important}.grid{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:repeat(2,1fr)}.term-card{min-height:0}h1{font-size:38px}h2{font-size:32px}}
+</style>
+</head>
+<body>
+<header><div class="top"><span class="brand">심박수 탐구</span><span class="topic">딱 하나만 바꿔 보자 · 변인 알아보기</span></div></header>
+<main id="main">
+<section data-page="0" aria-labelledby="title0">
+<p class="eyebrow">01 / 먼저, 생각해 보기</p>
+<h1 id="title0" tabindex="-1">심박수가 더 높은 건,<br>운동 때문일까?</h1>
+<p class="lead">다음 두 사람을 비교하면 알 수 있을까요?</p>
+<div class="grid two">
+<div class="card"><p class="label">학생 A · 앉아서 쉬는 중</p><div class="big-number">72<span class="unit">회/분</span></div></div>
+<div class="card"><p class="label">학생 B · 제자리걸음을 한 뒤</p><div class="big-number">108<span class="unit">회/분</span></div></div>
+</div>
+<p class="subtle">생각해 보기용 가상 수치입니다.</p>
+<div class="reveal"><button class="action" data-reveal="hook" aria-expanded="false">이 비교, 괜찮을까?</button></div>
+<div class="answer" id="hook" hidden><p><strong>운동도 다르고, 사람도 달라요.</strong></p><p>차이가 운동 때문인지, 원래 사람마다 다른 건지 구별하기 어려워요.<br><strong>같은 사람</strong>의 쉬었을 때와 활동한 뒤를 비교해 봅시다.</p></div>
+</section>
+<section data-page="1" aria-labelledby="title1" hidden>
+<p class="eyebrow">02 / 이름보다 뜻부터</p>
+<h2 id="title1" tabindex="-1">바꿀 것. 잴 것. 같게 할 것.</h2>
+<p class="lead">변인은 실험에 관련된 조건이나 요인이에요.</p>
+<div class="context">우리의 예시 질문: <strong>같은 사람이 쉬었을 때와 제자리걸음을 한 뒤, 심박수가 다를까?</strong></div>
+<div class="grid">
+<article class="card term-card"><p class="label">내가 일부러</p><h3>바꿀 것</h3><p>활동 여부<br>쉬기 ↔ 제자리걸음</p><button class="ghost" data-reveal="term1" aria-expanded="false">이름 열기</button><div class="term" id="term1" hidden>조작변인<small>실험에서 의도적으로 바꾸는 요인</small></div></article>
+<article class="card term-card"><p class="label">결과로</p><h3>잴 것</h3><p>측정한 심박수<br>단위: 회/분</p><button class="ghost" data-reveal="term2" aria-expanded="false">이름 열기</button><div class="term" id="term2" hidden>종속변인<small>조작변인에 따라 달라지는지 관찰·측정하는 요인</small></div></article>
+<article class="card term-card"><p class="label">공정한 비교를 위해</p><h3>같게 할 것</h3><p>측정하는 사람, 센서,<br>센서 부착 위치 등</p><button class="ghost" data-reveal="term3" aria-expanded="false">이름 열기</button><div class="term" id="term3" hidden>통제변인<small>결과에 영향을 줄 수 있어 일정하게 유지하는 요인</small></div></article>
+</div>
+<p class="small-note">심박수가 “변한다”고 해서 조작변인이 되는 건 아니에요. 내가 바꾸는지, 결과로 재는지를 구별해요.</p>
+</section>
+<section data-page="2" aria-labelledby="title2" hidden>
+<p class="eyebrow">03 / 말로 먼저 맞혀 보기</p>
+<h2 id="title2" tabindex="-1">이건 무슨 변인일까?</h2>
+<div class="context">계속 같은 실험입니다. <strong>쉬었을 때와 제자리걸음을 한 뒤의 심박수 비교</strong></div>
+<div class="quizbox">
+<div class="quizmeta"><span id="quizcount">질문 1 / 5</span><span>먼저 말하고, 눌러 확인!</span></div>
+<p class="question" id="quizquestion"></p>
+<div class="choices" role="group" aria-label="변인 선택"><button data-choice="조작변인">조작변인</button><button data-choice="종속변인">종속변인</button><button data-choice="통제변인">통제변인</button></div>
+<div class="quizfeedback" id="quizfeedback" aria-live="polite"><p>바꿀 것? 잴 것? 같게 할 것?</p></div>
+<div class="quiznext"><button class="ghost" id="quiznext" disabled>다음 질문 →</button></div>
+</div>
+<p class="small-note">변인 이름은 실험의 질문에 따라 달라져요. 지금 실험에서 어떤 역할인지 생각하세요.</p>
+</section>
+<section data-page="3" aria-labelledby="title3" hidden>
+<p class="eyebrow">04 / 예상 한 문장 만들기</p>
+<h2 id="title3" tabindex="-1">가설은, 확인해 볼 수 있는 예상.</h2>
+<p class="lead">무엇을 바꾸면, 무엇이 어떻게 달라질까요?</p>
+<div class="formula"><span>조작변인</span>을 바꾸면,<br><span>종속변인</span>이 <span>어떻게 달라질지</span> 예상해요.</div>
+<div class="reveal"><button class="action" data-reveal="hypothesis" aria-expanded="false">우리 실험의 가설은?</button></div>
+<div class="answer" id="hypothesis" hidden><p>“<strong>쉬었을 때보다 제자리걸음을 한 뒤에</strong><br><strong>심박수가 높을 것이다.</strong>”</p><p class="subtle">활동 여부 + 심박수 + 높아질 것이라는 예상</p></div>
+<p class="small-note">“심박수가 달라질까?”는 질문이에요. “높을 것이다.”처럼 예상하면 가설이 돼요.<br>예상과 다른 결과가 나와도 괜찮아요. 결과를 보고 가설을 판단하면 됩니다.</p>
+</section>
+<section data-page="4" aria-labelledby="title4" hidden>
+<p class="eyebrow">05 / 이런 가설도 세울 수 있어요</p>
+<h2 id="title4" tabindex="-1">내 관심사가 탐구 주제가 된다면?</h2>
+<p class="lead">“차분해진다”, “두근거린다”를 측정할 수 있는 문장으로 바꿔 봐요.</p>
+<div class="example-topics" role="group" aria-label="가설 예시 주제">
+<button data-example="0" aria-pressed="true" aria-controls="example-panel">명상 음악</button>
+<button data-example="1" aria-pressed="false" aria-controls="example-panel">신나는 음악</button>
+<button data-example="2" aria-pressed="false" aria-controls="example-panel">애니 캐릭터</button>
+<button data-example="3" aria-pressed="false" aria-controls="example-panel">좋아하는 연예인</button>
+<button data-example="4" aria-pressed="false" aria-controls="example-panel">진실과 거짓말</button>
+<button data-example="5" aria-pressed="false" aria-controls="example-panel">암산하기</button>
+</div>
+<div class="example-panel" id="example-panel" aria-live="polite" aria-atomic="true">
+<p class="label" id="example-idea"></p>
+<p class="hypothesis-text" id="example-hypothesis"></p>
+<dl class="example-facts"><dt>조작변인</dt><dd id="example-change"></dd><dt>종속변인</dt><dd>정해 둔 같은 길이의 측정 구간에서 구한 평균 심박수(회/분)</dd><dt>통제변인</dt><dd id="example-controls"></dd></dl>
+<p class="example-tip" id="example-tip"></p>
+</div>
+<p class="small-note">모두 아직 확인하지 않은 가설이에요. 결과가 예상과 달라도 괜찮아요.<br>같은 사람의 두 조건을 비교하고, 무엇을 보여 주거나 들려줄지와 측정 시간을 미리 정하세요.</p>
+</section>
+<section data-page="5" aria-labelledby="title5" hidden>
+<p class="eyebrow">06 / 이제, 우리 모둠의 질문</p>
+<h1 id="title5" tabindex="-1">심박수를 바꿀 만한 것,<br>하나만 골라 보자.</h1>
+<p class="lead">앞의 실험은 예시예요. 모둠에서 탐구할 요인을 정하세요.</p>
+<div class="grid"><div class="card"><p class="label">조작변인</p><h3>무엇을 바꿀까?</h3><p>비교할 두 조건을<br>구체적으로 정해요.</p></div><div class="card"><p class="label">종속변인</p><h3>무엇을 잴까?</h3><p>이번 탐구에서는 심박수.<br>단위도 함께 써요.</p></div><div class="card"><p class="label">통제변인</p><h3>무엇을 같게 할까?</h3><p>다른 이유로 결과가<br>달라지지 않게 정해요.</p></div></div>
+<p class="finish">모둠보고서의 <strong>가설 → 조작변인 → 종속변인 → 통제변인</strong>을 채우고, 선생님과 실험 방법을 확인하세요.</p>
+<p><a href="connection-manual.html" target="_blank" rel="noopener noreferrer" style="color:var(--blue)">실제 화면으로 보는 센서 연결·측정 매뉴얼 →</a></p>
+<p class="small-note">활동이 불편하면 측정·기록 역할로 참여해도 좋아요. 무리한 운동이나 숨 참기는 하지 않아요.</p>
+</section>
+</main>
+<div class="footer-wrap"><nav aria-label="설명 페이지"><div class="steps" id="steps"></div><span class="position" id="position">1 / 6 · ← → 키로 이동</span><div class="navbuttons"><button class="ghost" id="prev" disabled>← 이전</button><button class="action" id="next">다음 →</button></div></nav><footer id="app-credit"><span>© 2026 조승재(과학이조선생) · 해누리중학교 · 최종 업데이트 2026-09-28</span><span>학습지 참고: @archiving_t · <a href="https://blog.naver.com/biot_yj" target="_blank" rel="noopener noreferrer">심박계를 이용한 탐구 실험</a></span></footer></div>
+<script>
+const pages=[...document.querySelectorAll('[data-page]')];
+const labels=['생각해 보기','세 가지 변인','변인 퀴즈','가설 만들기','다양한 가설 예시','모둠 탐구'];
+let current=0;
+const dots=labels.map((label,i)=>{const b=document.createElement('button');b.className='step';b.setAttribute('aria-label',`${i+1}. ${label}`);b.onclick=()=>go(i);document.getElementById('steps').append(b);return b});
+function go(n,focus=true){current=Math.max(0,Math.min(pages.length-1,n));pages.forEach((p,i)=>p.hidden=i!==current);dots.forEach((b,i)=>{if(i===current)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});document.getElementById('prev').disabled=current===0;document.getElementById('next').disabled=current===pages.length-1;document.getElementById('position').textContent=`${current+1} / ${pages.length} · ← → 키로 이동`;if(focus){pages[current].querySelector('h1,h2').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'})}}
+document.getElementById('prev').onclick=()=>go(current-1);document.getElementById('next').onclick=()=>go(current+1);
+document.addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.metaKey||e.target.matches('input,textarea,select'))return;if(e.key==='ArrowRight'){e.preventDefault();go(current+1)}if(e.key==='ArrowLeft'){e.preventDefault();go(current-1)}});
+document.querySelectorAll('[data-reveal]').forEach(b=>{const original=b.textContent;b.addEventListener('click',()=>{const panel=document.getElementById(b.dataset.reveal);panel.hidden=!panel.hidden;b.setAttribute('aria-expanded',String(!panel.hidden));b.textContent=panel.hidden?original:'다시 가리기';b.setAttribute('aria-controls',panel.id)})});
+const questions=[
+{q:'쉬기 ↔ 제자리걸음',a:'조작변인',why:'활동 여부를 우리가 일부러 바꿨어요.'},
+{q:'센서로 측정한 심박수',a:'종속변인',why:'활동 여부에 따라 달라지는지 결과로 재는 값이에요.'},
+{q:'두 조건에서 측정하는 사람',a:'통제변인',why:'사람마다 차이가 있으므로 같은 사람을 측정해요.'},
+{q:'사용하는 센서와 부착 위치',a:'통제변인',why:'측정 방법의 차이가 결과에 영향을 주지 않도록 같게 해요.'},
+{q:'쉬기와 활동 뒤에 심박수를 읽을 때의 자세',a:'통제변인',why:'측정할 때의 자세도 영향을 줄 수 있어 같은 자세로 읽어요.'}
+];let qi=0;const nextQ=document.getElementById('quiznext');
+function renderQuiz(){document.getElementById('quizcount').textContent=`질문 ${qi+1} / ${questions.length}`;document.getElementById('quizquestion').textContent=questions[qi].q;document.getElementById('quizfeedback').innerHTML='<p>바꿀 것? 잴 것? 같게 할 것?</p>';document.querySelectorAll('[data-choice]').forEach(b=>{b.classList.remove('selected');b.setAttribute('aria-pressed','false')});nextQ.disabled=true;nextQ.textContent=qi===questions.length-1?'처음부터 다시 ↺':'다음 질문 →'}
+document.querySelectorAll('[data-choice]').forEach(b=>{b.onclick=()=>{const q=questions[qi];document.querySelectorAll('[data-choice]').forEach(x=>{x.classList.toggle('selected',x===b);x.setAttribute('aria-pressed',String(x===b))});const correct=b.dataset.choice===q.a;document.getElementById('quizfeedback').innerHTML=correct?`<p><strong>맞아요. ${q.a}!</strong><br>${q.why}</p>`:`<p><strong>다시 생각해 볼까요?</strong><br>${q.why}</p>`;nextQ.disabled=!correct}});
+const examples=[
+{idea:'떠오른 생각 · 유튜브 명상 음악을 들으면 차분해질까?',hypothesis:'음악 없이 앉아 있을 때보다, 선택한 명상 음악을 들을 때 평균 심박수가 낮을 것이다.',change:'명상 음악 듣기 여부 — 조건 A: 음악 없음 / 조건 B: 선택한 명상 음악',controls:'같은 사람·자세·센서·측정 시간, 주변 소음, 바라보는 화면',tip:'유튜브를 쓴다면 광고나 영상 장면이 섞이지 않게 같은 정지 화면을 보며 소리만 비교해요. 심박수만으로 차분한 감정을 확정할 수는 없어요.'},
+{idea:'떠오른 생각 · 신나는 음악을 들으면 심장이 더 빨리 뛸까?',hypothesis:'음악 없이 앉아 있을 때보다, 선택한 신나는 음악을 들을 때 평균 심박수가 높을 것이다.',change:'신나는 음악 듣기 여부 — 조건 A: 음악 없음 / 조건 B: 선택한 신나는 음악',controls:'같은 사람·자세·센서·측정 시간, 주변 소음, 바라보는 화면',tip:'음악을 들으며 춤추거나 노래하면 움직임과 말하기도 달라져요. 두 조건 모두 앉아서 듣고, 재생 구간과 편안한 음량을 미리 정해요.'},
+{idea:'떠오른 생각 · 좋아하는 애니 캐릭터를 보면 두근거릴까?',hypothesis:'관심이 적은 애니 캐릭터 사진을 볼 때보다, 좋아하는 캐릭터 사진을 볼 때 평균 심박수가 높을 것이다.',change:'보는 캐릭터 사진 — 조건 A: 관심이 적은 캐릭터 / 조건 B: 좋아하는 캐릭터',controls:'같은 사람·자세·센서·측정 시간, 사진 크기, 화면 밝기와 거리',tip:'소리 없는 정지 사진끼리 비교해요. 어떤 사진을 쓸지는 참여자가 고르고, 결과는 이번에 선택한 사진에 대한 반응으로 해석해요.'},
+{idea:'떠오른 생각 · 좋아하는 연예인을 보면 심장이 더 빨리 뛸까?',hypothesis:'관심이 적은 연예인 사진을 볼 때보다, 좋아하는 연예인 사진을 볼 때 평균 심박수가 높을 것이다.',change:'보는 연예인 사진 — 조건 A: 관심이 적은 연예인 / 조건 B: 좋아하는 연예인',controls:'같은 사람·자세·센서·측정 시간, 사진 크기, 화면 밝기와 거리',tip:'사진을 보며 말하거나 웃는 상황도 기록해요. 심박수의 크기가 그 사람을 좋아하는 정도를 뜻하는 것은 아니에요.'},
+{idea:'떠오른 생각 · 거짓말할 때 심장이 더 빨리 뛸까?',hypothesis:'카드에 적힌 숫자를 사실대로 말할 때보다, 일부러 다른 숫자를 말할 때 평균 심박수가 높을 것이다.',change:'답을 사실대로 말하는지 여부 — 조건 A: 실제 숫자 말하기 / 조건 B: 정해 둔 다른 숫자 말하기',controls:'같은 사람·자세·센서·측정 시간, 질문 방식, 답변 길이와 횟수, 듣는 사람',tip:'비밀을 묻는 대신 숫자 카드로 역할놀이를 해요. 심박수는 긴장 등에도 달라지므로, 이 실험으로 진실·거짓을 판별할 수는 없어요.'},
+{idea:'떠오른 생각 · 머릿속으로 계산할 때도 심박수가 달라질까?',hypothesis:'숫자를 조용히 바라볼 때보다, 숫자로 암산할 때 평균 심박수가 높을 것이다.',change:'암산 여부 — 조건 A: 숫자 바라보기 / 조건 B: 정해 둔 계산을 머릿속으로 하기',controls:'같은 사람·자세·센서·측정 시간, 숫자 제시 방식, 주변 소음',tip:'말하기의 영향을 줄이도록 두 조건 모두 말없이 진행해요. 계산 방법과 난이도는 시작 전에 정하고, 정답 확인은 측정이 끝난 뒤에 해요.'}
+];
+function showExample(index){const item=examples[index];document.querySelectorAll('[data-example]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.example)===index)));document.getElementById('example-idea').textContent=item.idea;document.getElementById('example-hypothesis').textContent='“'+item.hypothesis+'”';document.getElementById('example-change').textContent=item.change;document.getElementById('example-controls').textContent=item.controls;document.getElementById('example-tip').textContent=item.tip;}
+document.querySelectorAll('[data-example]').forEach(b=>b.addEventListener('click',()=>showExample(Number(b.dataset.example))));
+nextQ.onclick=()=>{qi=(qi+1)%questions.length;renderQuiz()};go(0,false);renderQuiz();showExample(0);
+</script>
+</body>
+</html>
